@@ -1,193 +1,291 @@
 # 🚀 LLM News Intelligence
 
-> AI-powered financial news intelligence platform with multi-provider LLM orchestration, automatic failover, sentiment analysis, and opportunity detection.
+<div align="center">
+
+### AI-powered Financial Market Intelligence Platform
+
+Monitor stocks • Analyze financial news • Detect opportunities • Deliver AI-powered insights
+
+![Python](https://img.shields.io/badge/Python-3.11+-blue)
+![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4.1--mini-green)
+![Gemini](https://img.shields.io/badge/Google-Gemini-orange)
+![Groq](https://img.shields.io/badge/Groq-Llama_3.3-red)
+![Status](https://img.shields.io/badge/Status-Production_Ready-success)
+
+</div>
 
 ---
 
-## 📌 Overview
+# 📌 Overview
 
-LLM News Intelligence is an AI-driven platform that collects financial news, analyzes market sentiment using multiple Large Language Models (LLMs), and generates actionable insights for stock investors.
+LLM News Intelligence is an autonomous financial market intelligence platform that continuously monitors stocks, collects financial news, performs AI-driven analysis using multiple LLM providers, and delivers actionable investment insights.
 
-Instead of relying on a single AI provider, the platform automatically routes requests through multiple LLMs (Google Gemini, Groq, OpenAI). If one provider becomes unavailable or reaches its rate limit, the system seamlessly switches to another provider without interrupting the analysis.
+Instead of manually checking dozens of financial websites every day, the platform automates the entire workflow.
 
-This architecture ensures high availability, resilience, and consistent AI-powered market analysis.
+## Core Capabilities
 
----
-
-## ✨ Key Features
-
-- 🤖 Multi-LLM Architecture
-- 🔄 Automatic Provider Failover
-- 🛡 Smart Circuit Breaker (Rate Limit Protection)
-- 📰 Financial News Collection
-- 📊 AI-Based News Analysis
-- 📈 Stock Opportunity Detection
-- 📧 Email Notifications
-- 📝 Notebook Logging
-- ⚙️ Configurable Watchlists
-- ⏰ Automated Hourly Execution
+- 📈 Monitor a configurable watchlist
+- 📰 Aggregate latest financial news
+- 📊 Calculate technical indicators
+- 🤖 Analyze data using multiple LLM providers
+- 🚨 Send instant mobile notifications
+- 📧 Generate daily opportunity reports
+- 🔄 Automatic AI provider failover
 
 ---
 
-## 🏗 Architecture
+# 🏗 System Architecture
 
+```mermaid
+flowchart TD
+
+A[Hourly Scheduler]
+
+A --> B[Watchlist Analysis]
+A --> C[Daily Market Screener]
+
+B --> D[Stock Market Data]
+B --> E[Financial News]
+
+C --> F[Screened Stocks]
+F --> E
+
+D --> G[Prompt Builder]
+E --> G
+
+G --> H[AI Manager]
+
+H --> I[Google Gemini]
+H --> J[Groq Llama 3.3]
+H --> K[OpenAI GPT-4.1 Mini]
+
+I --> L[AI Investment Analysis]
+J --> L
+K --> L
+
+L --> M[Pushover Notifications]
+L --> N[Daily Email Report]
 ```
-                Financial News APIs
-                         │
-                         ▼
-                News Collection Layer
-                         │
-                         ▼
-                 Prompt Builder
-                         │
-                         ▼
-                    AI Manager
-                         │
-      ┌──────────────────┼──────────────────┐
-      ▼                  ▼                  ▼
-  Google Gemini        Groq              OpenAI
-      │                  │                  │
-      └────────── Automatic Failover ───────┘
-                         │
-                         ▼
-              AI Market Intelligence
-                         │
-                         ▼
-          Email Alerts / Reports / Notebook
+
+---
+
+# 🚀 Workflow
+
+```mermaid
+flowchart LR
+
+A[Download Market Data]
+
+A --> B[Technical Indicators]
+
+B --> C[Collect Financial News]
+
+C --> D[Prompt Engineering]
+
+D --> E[Multi-LLM Analysis]
+
+E --> F[Generate Investment Insight]
+
+F --> G[Pushover Alert]
+
+F --> H[Daily Opportunity Report]
 ```
 
 ---
 
-## 🧠 Multi-LLM Orchestration
+# 🤖 AI Architecture
 
-The platform uses a centralized **AI Manager** responsible for:
+The platform is completely model-agnostic.
 
-- Selecting the active LLM provider
-- Detecting provider failures
-- Handling API rate limits
-- Applying cooldown policies
-- Automatically switching to the next available provider
-- Returning a unified response regardless of provider
+Instead of depending on a single AI provider, every request is routed through a centralized AI Manager.
 
 Supported providers:
 
-- Google Gemini
-- Groq (Llama 3.3 70B)
-- OpenAI GPT-4.1 Mini
+| Provider | Role |
+|----------|------|
+| Google Gemini | Primary |
+| Groq (Llama 3.3 70B) | Secondary |
+| OpenAI GPT-4.1 Mini | Final fallback |
 
 ---
 
-## 🔄 Automatic Failover
+# 🔄 Smart Failover
 
-Example execution flow:
+If one provider becomes unavailable, the next provider automatically continues the analysis.
 
+```mermaid
+flowchart LR
+
+A[AI Request]
+
+A --> B[Gemini]
+
+B -->|Success| Z[Return Response]
+
+B -->|429 Rate Limit| C[Cooldown 5 Minutes]
+
+C --> D[Groq]
+
+D -->|Success| Z
+
+D -->|Failure| E[OpenAI]
+
+E --> Z
 ```
-Gemini
-   │
-429 Rate Limit
-   │
-Cooldown (5 min)
-   │
-   ▼
-Groq
-   │
-Success
-   │
-   ▼
-Application continues normally
-```
 
-The application never depends on a single AI provider.
+### Features
+
+- Automatic provider switching
+- Rate-limit detection
+- Circuit breaker
+- Cooldown management
+- Zero manual intervention
 
 ---
 
-## 📈 Project Workflow
+# 📈 Technical Analysis
 
-```
-Watchlist
+Every monitored stock is analyzed using:
 
-     │
+- RSI
+- MACD
+- Bollinger Bands
+- ATR
+- SMA 20
+- SMA 50
+- SMA 200
+- Stochastic Oscillator
+- Volume Analysis
+- Daily Price Movement
 
-     ▼
+---
 
-Stock Analysis
+# 📰 AI News Intelligence
 
-     │
+Financial news is combined with technical indicators.
 
-     ▼
+The AI evaluates:
 
-Financial News Collection
+- Market sentiment
+- Technical trend
+- News impact
+- Investment risk
+- Buy/Sell signal
+- Confidence level
 
-     │
+Instead of simply summarizing news, the system generates concise investment insights.
 
-     ▼
+---
 
-Prompt Generation
+# 📲 Notification System
 
-     │
+## Instant Mobile Alerts
 
-     ▼
+Watchlist stocks are sent via **Pushover**.
 
-AI Manager
+Example:
 
-     │
+```text
+🟢 NVDA
 
-     ▼
+SIGNAL : BUY
 
-Market Analysis
+Confidence : High
 
-     │
+Positive news combined with an oversold RSI suggests a potential buying opportunity.
 
-     ▼
-
-Email Notification
+Watch : $175 support level
 ```
 
 ---
 
-## 🛠 Technology Stack
+## Daily Opportunity Report
 
-- Python
-- OpenAI API
-- Google Gemini API
-- Groq API
-- Finnhub API
-- Requests
-- Logging
-- REST APIs
+The market screener automatically scans the market and sends an email report containing:
+
+- Top opportunities
+- AI-generated summaries
+- Risk evaluation
+- Technical signals
 
 ---
 
-## 📂 Project Structure
+# 🛠 Technology Stack
 
-```
+| Category | Technologies |
+|-----------|--------------|
+| Language | Python |
+| AI | OpenAI, Gemini, Groq |
+| Market Data | Finnhub API |
+| HTTP | Requests |
+| Notifications | Pushover |
+| Reports | SMTP Email |
+| Logging | Python Logging |
+| Scheduling | Hourly Runner |
+
+---
+
+# 📂 Project Structure
+
+```text
 llm-news-intelligence/
 
 ├── config/
+│
 ├── modules/
+│   ├── ai_manager.py
+│   ├── prompt_builder.py
+│   ├── news_fetcher.py
+│   ├── notifier.py
+│   ├── opportunity_analyzer.py
+│   ├── screener.py
+│   └── stock_data.py
+│
 ├── logs/
+│
 ├── main.py
+│
 ├── requirements.txt
+│
 └── README.md
 ```
 
 ---
 
-## 🎯 Future Improvements
+# 🎯 Roadmap
 
 - Claude support
 - Mistral support
-- Local LLM support (Ollama)
+- Ollama integration
 - Docker deployment
-- FastAPI REST interface
-- Web dashboard
-- AI Agent workflow
-- Portfolio optimization
+- FastAPI API
+- Web Dashboard
+- Portfolio Optimization
+- AI Agent Workflow
+- Vector Database Support
 
 ---
 
-## 👨‍💻 Author
+# 💡 Why This Project?
 
-Developed by **Onur Çulha**
+This project demonstrates practical experience with:
 
-Passionate about AI-powered financial intelligence, LLM orchestration, product development, and intelligent automation.
+- Multi-LLM orchestration
+- AI workflow automation
+- Financial data analysis
+- Prompt engineering
+- Fault-tolerant architecture
+- API integrations
+- Autonomous AI systems
+
+---
+
+# 👨‍💻 Author
+
+**Onur Çulha**
+
+Business Analyst • AI Product Enthusiast • LLM Applications • Intelligent Automation
+
+---
+
+⭐ If you found this project interesting, feel free to star the repository.

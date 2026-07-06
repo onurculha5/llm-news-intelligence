@@ -280,6 +280,14 @@ This project demonstrates practical experience with:
 
 ---
 
+## ⚠️ Disclaimer
+
+This project is intended for educational and research purposes only.
+
+The generated analyses, investment signals, and market insights are produced by AI models and should not be considered financial or investment advice.
+
+Always conduct your own research before making investment decisions.
+
 # 👨‍💻 Author
 
 **Onur Çulha**

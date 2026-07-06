@@ -216,7 +216,7 @@ The market screener automatically scans the market and sends an email report con
 |-----------|--------------|
 | Language | Python |
 | AI | OpenAI, Gemini, Groq |
-| Market Data | Finnhub API |
+| Market Data | Finnhub API-News API | 
 | HTTP | Requests |
 | Notifications | Pushover |
 | Reports | SMTP Email |

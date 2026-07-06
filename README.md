@@ -1,367 +1,193 @@
 # 🚀 LLM News Intelligence
 
-<p align="center">
-
-AI-powered financial market intelligence platform built with multiple Large Language Models.
-
-Automatically monitors stocks, collects financial news, performs AI-driven analysis, identifies investment opportunities, and sends real-time notifications.
-
-</p>
+> AI-powered financial news intelligence platform with multi-provider LLM orchestration, automatic failover, sentiment analysis, and opportunity detection.
 
 ---
 
 ## 📌 Overview
 
-LLM News Intelligence is an autonomous market analysis platform that combines:
+LLM News Intelligence is an AI-driven platform that collects financial news, analyzes market sentiment using multiple Large Language Models (LLMs), and generates actionable insights for stock investors.
 
-- 📈 Real-time stock market data
-- 📰 Financial news aggregation
-- 📊 Technical indicators
-- 🤖 Multiple AI providers
-- 📲 Instant mobile notifications
-- 📧 Daily opportunity reports
+Instead of relying on a single AI provider, the platform automatically routes requests through multiple LLMs (Google Gemini, Groq, OpenAI). If one provider becomes unavailable or reaches its rate limit, the system seamlessly switches to another provider without interrupting the analysis.
 
-Instead of manually reading dozens of news articles every day, the platform continuously analyzes your watchlist and delivers concise investment insights.
+This architecture ensures high availability, resilience, and consistent AI-powered market analysis.
 
 ---
 
-# 🏗 System Architecture
+## ✨ Key Features
 
-```text
-                        ┌────────────────────────────┐
-                        │      Scheduled Runner      │
-                        │     (Runs Every Hour)      │
-                        └──────────────┬─────────────┘
-                                       │
-                     ┌─────────────────┴─────────────────┐
-                     ▼                                   ▼
-          Watchlist Analysis                    Market Screener
-                     │                                   │
-                     ▼                                   ▼
-             Stock Data API                    Stock Screening
-                     │                                   │
-                     ▼                                   ▼
-          Technical Indicators                 Candidate Stocks
-                     │                                   │
-                     └──────────────┬────────────────────┘
-                                    ▼
-                          Financial News Fetcher
-                                    │
-                                    ▼
-                           Prompt Builder
-                                    │
-                                    ▼
-                              AI Manager
-                                    │
-      ┌───────────────┬──────────────┬───────────────┐
-      ▼               ▼              ▼
- Google Gemini     Groq AI       OpenAI GPT
-      │               │              │
-      └──────── Automatic Failover ─────────┘
-                     │
-                     ▼
-             AI Investment Analysis
-                     │
-          ┌──────────┴──────────┐
-          ▼                     ▼
-  📲 Pushover Alerts      📧 Email Reports
+- 🤖 Multi-LLM Architecture
+- 🔄 Automatic Provider Failover
+- 🛡 Smart Circuit Breaker (Rate Limit Protection)
+- 📰 Financial News Collection
+- 📊 AI-Based News Analysis
+- 📈 Stock Opportunity Detection
+- 📧 Email Notifications
+- 📝 Notebook Logging
+- ⚙️ Configurable Watchlists
+- ⏰ Automated Hourly Execution
+
+---
+
+## 🏗 Architecture
+
+```
+                Financial News APIs
+                         │
+                         ▼
+                News Collection Layer
+                         │
+                         ▼
+                 Prompt Builder
+                         │
+                         ▼
+                    AI Manager
+                         │
+      ┌──────────────────┼──────────────────┐
+      ▼                  ▼                  ▼
+  Google Gemini        Groq              OpenAI
+      │                  │                  │
+      └────────── Automatic Failover ───────┘
+                         │
+                         ▼
+              AI Market Intelligence
+                         │
+                         ▼
+          Email Alerts / Reports / Notebook
 ```
 
 ---
 
-# ✨ Features
+## 🧠 Multi-LLM Orchestration
 
-## 📈 Watchlist Monitoring
+The platform uses a centralized **AI Manager** responsible for:
 
-Monitor your favorite stocks automatically.
-
-Features:
-
-- Hourly execution
-- Technical analysis
-- Financial news collection
-- AI-powered interpretation
-- Mobile notifications
-
----
-
-## 📊 Technical Analysis
-
-For every stock the platform calculates:
-
-- RSI
-- MACD
-- Bollinger Bands
-- ATR
-- SMA 20 / 50 / 200
-- Stochastic Oscillator
-- Daily price change
-- Volume analysis
-
----
-
-## 📰 Financial News Intelligence
-
-Latest financial news is collected and combined with technical indicators.
-
-Instead of simply summarizing news, the AI evaluates:
-
-- Market sentiment
-- Technical trend
-- News impact
-- Risk level
-- Investment signal
-
----
-
-# 🤖 Multi-LLM Architecture
-
-The platform is completely model-agnostic.
+- Selecting the active LLM provider
+- Detecting provider failures
+- Handling API rate limits
+- Applying cooldown policies
+- Automatically switching to the next available provider
+- Returning a unified response regardless of provider
 
 Supported providers:
 
-| Provider | Purpose |
-|----------|---------|
-| Google Gemini | Primary |
-| Groq (Llama 3.3 70B) | Automatic fallback |
-| OpenAI GPT-4.1 Mini | Final fallback |
+- Google Gemini
+- Groq (Llama 3.3 70B)
+- OpenAI GPT-4.1 Mini
 
 ---
 
-## Smart AI Routing
+## 🔄 Automatic Failover
 
-```text
-                AI Request
+Example execution flow:
 
-                     │
-
-                     ▼
-
-               AI Manager
-
-                     │
-
-          ┌──────────┼───────────┐
-
-          ▼          ▼           ▼
-
-      Gemini      Groq      OpenAI
-
-          │
-
-      Rate Limit?
-
-          │
-
-      Yes ▼
-
-    5 min Cooldown
-
-          │
-
-          ▼
-
-   Automatically switch
-
-      to next provider
 ```
-
-No manual intervention is required.
+Gemini
+   │
+429 Rate Limit
+   │
+Cooldown (5 min)
+   │
+   ▼
+Groq
+   │
+Success
+   │
+   ▼
+Application continues normally
+```
 
 The application never depends on a single AI provider.
 
 ---
 
-# 📲 Notification System
+## 📈 Project Workflow
 
-The platform uses two different notification channels.
+```
+Watchlist
 
-## Instant Mobile Alerts
+     │
 
-Pushover notifications are sent when:
+     ▼
 
-- Buy signals appear
-- Sell signals appear
-- Watchlist stocks change significantly
-- Important news is detected
+Stock Analysis
 
-Example:
+     │
 
-```text
-🟢 AAPL
+     ▼
 
-SIGNAL : BUY
+Financial News Collection
 
-Confidence : High
+     │
 
-RSI indicates oversold conditions while recent news remains positive.
+     ▼
 
-Watch : $205 support level
+Prompt Generation
+
+     │
+
+     ▼
+
+AI Manager
+
+     │
+
+     ▼
+
+Market Analysis
+
+     │
+
+     ▼
+
+Email Notification
 ```
 
 ---
 
-## Daily Opportunity Report
-
-Every day the screener scans the market and sends an email containing:
-
-- Best opportunities
-- AI summaries
-- Risk evaluation
-- Investment signals
-
----
-
-# 🔄 AI Failover
-
-```text
-Gemini
-
-   │
-
-429 Rate Limit
-
-   │
-
-Cooldown
-
-   │
-
-   ▼
-
-Groq
-
-   │
-
-Success
-
-   │
-
-   ▼
-
-Application continues
-```
-
-If one provider becomes unavailable the system automatically switches to another provider.
-
----
-
-# ⚙ Workflow
-
-```text
-Every Hour
-
-     │
-
-     ▼
-
-Download Stock Data
-
-     │
-
-     ▼
-
-Calculate Technical Indicators
-
-     │
-
-     ▼
-
-Collect Financial News
-
-     │
-
-     ▼
-
-Build AI Prompt
-
-     │
-
-     ▼
-
-Multi-LLM Analysis
-
-     │
-
-     ▼
-
-Generate Investment Insight
-
-     │
-
-     ▼
-
-Send Notification
-```
-
----
-
-# 🛠 Technology Stack
+## 🛠 Technology Stack
 
 - Python
-- Google Gemini API
 - OpenAI API
+- Google Gemini API
 - Groq API
 - Finnhub API
 - Requests
-- Pandas
 - Logging
-- Pushover API
-- SMTP Email
 - REST APIs
 
 ---
 
-# 📂 Project Structure
+## 📂 Project Structure
 
-```text
+```
 llm-news-intelligence/
 
-│
 ├── config/
-│
 ├── modules/
-│   ├── ai_manager.py
-│   ├── prompt_builder.py
-│   ├── news_fetcher.py
-│   ├── stock_data.py
-│   ├── screener.py
-│   ├── notifier.py
-│   └── opportunity_analyzer.py
-│
 ├── logs/
-│
 ├── main.py
-│
 ├── requirements.txt
-│
 └── README.md
 ```
 
 ---
 
-# 🚀 Roadmap
+## 🎯 Future Improvements
 
-- Claude integration
-- Mistral integration
-- Local LLM (Ollama)
+- Claude support
+- Mistral support
+- Local LLM support (Ollama)
 - Docker deployment
-- FastAPI interface
+- FastAPI REST interface
 - Web dashboard
+- AI Agent workflow
 - Portfolio optimization
-- AI Agent workflows
-- Vector database integration
 
 ---
 
-# 👨‍💻 About
+## 👨‍💻 Author
 
 Developed by **Onur Çulha**
 
-Business Analyst & AI Product enthusiast focused on:
-
-- Multi-LLM systems
-- AI Agents
-- Financial Intelligence
-- Product Development
-- Intelligent Automation
+Passionate about AI-powered financial intelligence, LLM orchestration, product development, and intelligent automation.

@@ -252,20 +252,6 @@ llm-news-intelligence/
 
 ---
 
-# 🎯 Roadmap
-
-- Claude support
-- Mistral support
-- Ollama integration
-- Docker deployment
-- FastAPI API
-- Web Dashboard
-- Portfolio Optimization
-- AI Agent Workflow
-- Vector Database Support
-
----
-
 # 💡 Why This Project?
 
 This project demonstrates practical experience with:
